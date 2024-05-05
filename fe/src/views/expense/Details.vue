@@ -18,6 +18,8 @@
         <div class="col-md-6">{{ expenses["price"] }} ₺</div>
         <div class="col-md-6">Date :</div>
         <div class="col-md-6">{{ expenses["date"] }}</div>
+        <div class="col-md-6">Time :</div>
+        <div class="col-md-6">{{ expenses["time"] }}</div>
       </div>
       <div class="row border-bottom border-top mt-2">
         <div class="col">✨Participants</div>

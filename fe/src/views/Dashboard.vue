@@ -2,6 +2,16 @@
   <div class="container text-center">
     <div class="row">
       <div class="col-md-3">
+        <table class="table">
+          <tbody class="text-start border-start border-end border-top">
+            <tr>
+              <td>{{ userStore.user["name"] }}</td>
+            </tr>
+            <tr>
+              <td>{{ userStore.user["email"] }}</td>
+            </tr>
+          </tbody>
+        </table>
         <button
           class="btn btn-primary w-100 mb-3"
           type="button"
@@ -39,8 +49,6 @@ import { useExpenseGroupService } from "../service/expense-group.service.ts";
 import { onBeforeMount, ref } from "vue";
 const router = useRouter();
 const userStore = useUserStore();
-// listed expenses, participants, total amount of expenses, and balance distributions among participants
-//const data = userStore.expenseGroups;
 
 const data = ref([]);
 useExpenseGroupService()

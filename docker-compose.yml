@@ -1,73 +1,48 @@
 version: '3.8'
 
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    restart: unless-stopped
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: rootuser
-      MONGO_INITDB_ROOT_PASSWORD: rootpass
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-
-  nodejs-auth:
-    build: auth-server
-    container_name: nodejs_auth_server
-    restart: unless-stopped
-    environment:
-      PORT: 3000
-      DB_URL: mongodb://rootuser:rootpass@mongodb:27017/
+  auth-server:
+    build: ./auth-server
     ports:
       - "3000:3000"
-    depends_on:
-      - mongodb
-    volumes:
-      - ./auth-server:/app
-
-  nodejs-expense:
-    build: expense-server
-    container_name: nodejs_expense_server
-    restart: unless-stopped
     environment:
-      PORT: 3001
-      DB_URL: mongodb://rootuser:rootpass@mongodb:27017/
+      - DB_URI=mongodb://mongo:27017
+    depends_on:
+      - mongo
+
+  expense-server:
+    build: ./expense-server
     ports:
       - "3001:3001"
-    depends_on:
-      - mongodb
-    volumes:
-      - ./expense-server:/app
-
-  nodejs-expense-group:
-    build: expense-group-server
-    container_name: nodejs_expense_group_server
-    restart: unless-stopped
     environment:
-      PORT: 3002
-      DB_URL: mongodb://rootuser:rootpass@mongodb:27017/
+      - DB_URI=mongodb://mongo:27017
+    depends_on:
+      - mongo
+
+  expense-group-server:
+    build: ./expense-group-server
     ports:
       - "3002:3002"
+    environment:
+      - DB_URI=mongodb://mongo:27017
     depends_on:
-      - mongodb
-    volumes:
-      - ./expense-group-server:/app
+      - mongo
 
   vuejs:
     build: ./fe
-    container_name: vuejs_frontend
-    restart: unless-stopped
     ports:
       - "5173:5173"
     depends_on:
-      - nodejs-auth
-      - nodejs-expense
-      - nodejs-expense-group
+      - auth-server
+      - expense-server
+      - expense-group-server
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
     volumes:
-      - ./fe:/app
-      - /app/node_modules
+      - mongo-data:/data/db
 
 volumes:
-  mongodb_data:
+  mongo-data:

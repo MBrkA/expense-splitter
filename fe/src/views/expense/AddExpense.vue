@@ -45,6 +45,17 @@
         />
       </div>
       <div class="form-group mb-3">
+        <label for="name">Time</label>
+        <input
+          v-model="data.time"
+          type="time"
+          class="form-control"
+          :class="isValid.time"
+          id="name"
+          required
+        />
+      </div>
+      <div class="form-group mb-3">
         <label for="name">Payer's Name</label>
         <input
           v-model="data.payer"
@@ -65,7 +76,6 @@
   </div>
 </template>
 <script setup lang="ts">
-// User Signup: New users can create an account by providing necessary details such as name, email, and password.
 import { onBeforeMount, ref } from "vue";
 import { useExpenseService } from "../../service/expense.service.ts";
 import { useRouter } from "vue-router";
@@ -82,12 +92,14 @@ const data = ref({
   expname: "",
   price: "",
   date: new Date().toISOString().slice(0, 10),
+  time: new Date().toISOString().slice(11, 16),
   payer: "",
 });
 const isValid = ref({
   expname: "",
   price: "",
   date: "",
+  time: "",
   payer: "",
 });
 
@@ -117,18 +129,20 @@ function validationCheck() {
   } else {
     isValid.value.date = "is-valid";
   }
+  if (!data.value.time) {
+    isValid.value.time = "is-invalid";
+    v = v ? false : v;
+  } else {
+    isValid.value.time = "is-valid";
+  }
   return v;
 }
 
 function submitFunc() {
-  console.log(data.value);
-  // Implement signup functionality here
   if (validationCheck()) {
-    console.log(data.value);
     useExpenseService()
       .createExpense(String(props.id), data.value)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         router.push({ name: "expense-details", params: { id: props.id } });
       });
   }
