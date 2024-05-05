@@ -1,30 +1,22 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div style="background-color: #868fa6; width: 100vw; padding-top: 3vh"></div>
+  <div style="display: flex; flex-direction: column; align-items: center">
+    <nav
+      class="navbar bg-body-secondary mb-5 shadow"
+      style="width: 100vw; background-color: #f0f0f0 !important"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand mb-0 h1 ms-3" href="/">Expense Splitter</a>
+      </div>
+    </nav>
+    <router-view />
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<style>
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+body {
+  font-family: "Montserrat", sans-serif;
 }
 </style>
+<script setup lang="ts"></script>
