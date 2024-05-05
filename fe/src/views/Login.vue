@@ -40,7 +40,6 @@
   </div>
 </template>
 <script setup lang="ts">
-// User Signup: New users can create an account by providing necessary details such as name, email, and password.
 import { onBeforeMount, ref } from "vue";
 import { useUserService } from "../service/user.service.ts";
 import { useRouter } from "vue-router";
@@ -85,13 +84,11 @@ function clearValidation() {
 }
 
 function login() {
-  // Implement signup functionality here
   if (validationCheck()) {
     useUserService()
       .login(data.value.email, data.value.password)
       .then((res) => {
         if (res) {
-          console.log(res);
           store.setUser(res);
           router.push("/dashboard");
         } else {
@@ -101,7 +98,7 @@ function login() {
       })
       .catch((err) => {
         isFailed.value = true;
-        console.log(err);
+        console.error(err);
         clearValidation();
       });
   }

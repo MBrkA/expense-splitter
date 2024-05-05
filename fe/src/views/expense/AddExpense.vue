@@ -144,6 +144,9 @@ function submitFunc() {
       .createExpense(String(props.id), data.value)
       .then(() => {
         router.push({ name: "expense-details", params: { id: props.id } });
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 }

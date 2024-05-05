@@ -58,10 +58,6 @@
   </div>
 </template>
 <script setup lang="ts">
-/*
-Expense Group Details: Clicking on an expense group within the dashboard reveals detailed information,
-including listed expenses, participants, total amount of expenses, and balance distributions among participants.
- */
 import { useUserStore } from "../../store/user.store.ts";
 import { useRouter } from "vue-router";
 import { useExpenseGroupService } from "../../service/expense-group.service.ts";
@@ -73,7 +69,7 @@ const props = defineProps<{
 
 const userStore = useUserStore();
 const router = useRouter();
-//const data = userStore.getExpenseGroup(props.id);
+
 const data = ref({});
 const uniquePayerNames = ref([]);
 const totalAmount = ref(0);
@@ -105,10 +101,9 @@ useExpenseGroupService()
           payer.amount - totalAmount.value / uniquePayerNames.value.length,
       };
     });
-    console.log(response);
   })
   .catch((error) => {
-    console.log(error);
+    console.error(error);
   });
 
 function addExpense() {

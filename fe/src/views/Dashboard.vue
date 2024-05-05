@@ -57,7 +57,7 @@ useExpenseGroupService()
     data.value = response;
   })
   .catch((error) => {
-    console.log(error);
+    console.error(error);
   });
 
 function logout() {

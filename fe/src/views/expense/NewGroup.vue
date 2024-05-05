@@ -34,7 +34,6 @@
   </div>
 </template>
 <script setup lang="ts">
-// User Signup: New users can create an account by providing necessary details such as name, email, and password.
 import { onBeforeMount, ref } from "vue";
 import { useExpenseGroupService } from "../../service/expense-group.service.ts";
 import { useRouter } from "vue-router";
@@ -43,7 +42,6 @@ import { useUserStore } from "../../store/user.store.ts";
 const router = useRouter();
 const userStore = useUserStore();
 
-// get date as
 const data = ref({
   name: "",
   date: new Date().toISOString().slice(0, 10),
@@ -81,12 +79,11 @@ function submitFunc() {
         participants: [],
         balanceDistribution: [],
       })
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         router.push("/dashboard");
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }
 }
