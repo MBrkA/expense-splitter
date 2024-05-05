@@ -1,5 +1,5 @@
 const express = require('express');
-const { MongoClient, ServerApiVersion, ObjectId} = require('mongodb');
+const { MongoClient, ObjectId} = require('mongodb');
 const cors = require('cors');
 const bp = require('body-parser')
 
@@ -8,7 +8,7 @@ app.use(cors());
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 
-const uri = 'mongodb://rootuser:rootpass@localhost:27017';
+const uri = process.env.DB_URI;
 const client = new MongoClient(uri);
 
 (async() => {

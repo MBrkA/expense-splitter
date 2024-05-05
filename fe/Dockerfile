@@ -4,6 +4,6 @@ COPY package*.json ./
 RUN npm install -g pnpm
 RUN pnpm install
 COPY . .
-EXPOSE 8080
+EXPOSE 5173
 CMD ["pnpm", "run", "dev", "--host"]
 
